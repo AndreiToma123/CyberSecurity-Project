@@ -1,3 +1,4 @@
+
 import java.net.*;
 import java.io.*;
 
@@ -73,9 +74,9 @@ public class ChatClient {
                 while(true) {
                     String message = consoleInput.readLine();
                     
-                    if(message.equals("/disconnect")) {
-                        break;
-                    }
+//                    if(message.equals("/disconnect")) {
+//                        break;
+//                    }
                     
                     sendMessage(message);
                 }

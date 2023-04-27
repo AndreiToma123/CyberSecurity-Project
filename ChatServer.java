@@ -1,3 +1,4 @@
+
 import java.net.*;
 import java.io.*;
 
@@ -21,16 +22,16 @@ public class ChatServer {
         }
         catch(Exception e) {
 //            System.out.println("Error starting server on port " + port + ": " + e.getMessage());
-              System.out.println("Maximum number of users reached.");
+//              System.out.println("Maximum number of users reached.");
         }
     }
     
-    public synchronized void broadcast(String message) {
-        
-        for(int i = 0; i < clientCount; i++) {
-            clients[i].sendMessage(message);
-        }
-    }
+//    public synchronized void broadcast(String message) {
+//        
+//        for(int i = 0; i < clientCount; i++) {
+//            clients[i].sendMessage(message);
+//        }
+//    }
     
     public synchronized void removeClient(ClientThread clientThread) {
         int index = -1;
@@ -79,61 +80,61 @@ class ClientThread extends Thread {   //handles communication between a client a
         }
     }
     
-    public void sendMessage(String message) {
-        output.println(message);
-    }
+//    public void sendMessage(String message) {
+//        output.println(message);
+//    }
     
-    public void run() {
-        
-        String message;
-        
-        try {
-        while ((message = input.readLine()) != null) {
-           if (message.startsWith("/msg ")) { //send private message
-                handlePrivateMessage(message);
-            } else {
-                server.broadcast("[" + nickname + "]: " + message);
-            }
-        }
-    } catch (IOException e) {
-//        System.out.println("Error reading from client: " + e.getMessage());
-    } finally {
-        cleanup();
-    }
-}
-    public void handlePrivateMessage(String message) {
-        String[] parts = message.substring(5).split(" ", 2);
-        boolean foundRecipient = false;
-        String recipient = parts[0];
-        String msg = parts[1];
+//    public void run() {
+//        
+//        String message;
+//        
+//        try {
+//        while ((message = input.readLine()) != null) {
+//           if (message.startsWith("/msg ")) { //send private message
+//                handlePrivateMessage(message);
+//            } else {
+//                server.broadcast("[" + nickname + "]: " + message);
+//            }
+//        }
+//    } catch (IOException e) {
+////        System.out.println("Error reading from client: " + e.getMessage());
+//    } finally {
+//        cleanup();
+//    }
+//}
+//    public void handlePrivateMessage(String message) {
+//        String[] parts = message.substring(5).split(" ", 2);
+//        boolean foundRecipient = false;
+//        String recipient = parts[0];
+//        String msg = parts[1];
+//
+//        if (parts.length != 2) {
+//            output.println("Invalid message format");
+//        }
 
-        if (parts.length != 2) {
-            output.println("Invalid message format");
-        }
 
+//        for (ClientThread i : server.clients) {
+//            if (i != null && i.nickname.equals(recipient)) {
+//                i.sendMessage("[Private message from " + nickname + "]: " + msg);
+//                foundRecipient = true;
+//                break;
+//            }
+//        }
 
-        for (ClientThread i : server.clients) {
-            if (i != null && i.nickname.equals(recipient)) {
-                i.sendMessage("[Private message from " + nickname + "]: " + msg);
-                foundRecipient = true;
-                break;
-            }
-        }
-
-        if (foundRecipient == false) {
-            output.println("Recipient not found");
-        }
-
-}
-    
+//        if (foundRecipient == false) {
+//            output.println("Recipient not found");
+//        }
     public void cleanup() {
-        server.removeClient(this);
-        server.broadcast(nickname + " left the chat");
+            server.removeClient(this);
+    //        server.broadcast(nickname + " left the chat");
 
-        try {
-            clientSocket.close();
-        } catch (IOException e) {
-//            System.out.println("Error closing client socket: " + e.getMessage());
-        }
-}
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+    //            System.out.println("Error closing client socket: " + e.getMessage());
+            }
     }
+
+}
+    
+    //    }
