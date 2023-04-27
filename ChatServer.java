@@ -1,6 +1,9 @@
+package chatserver;
 
 import java.net.*;
 import java.io.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 public class ChatServer {
     ServerSocket serverSocket;
@@ -59,9 +62,11 @@ class ClientThread extends Thread {   //handles communication between a client a
     BufferedReader input;
     PrintWriter output;   
     ChatServer server;   
-    String nickname;
+    String username, username_check, password, password_check;
+    Hashtable<String, String> user_pass;
     
     public ClientThread(Socket clientSocket, ChatServer server) {
+        this.user_pass = new Hashtable<>();
         
         try {
             this.clientSocket = clientSocket;
@@ -70,10 +75,23 @@ class ClientThread extends Thread {   //handles communication between a client a
             input = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             output = new PrintWriter(clientSocket.getOutputStream(), true);
             
-            output.println("Please enter a nickname: ");
-            nickname = input.readLine(); //set nickanme
-            output.println("Welcome to the chat, " + nickname + "!");
-            
+            output.println("Please enter a username: ");
+            username = input.readLine(); //set nickanme
+            output.println("Please enter a password: ");
+            password = input.readLine(); //set password
+            user_pass.put(username, password);
+            output.println("‘Registration Successful");
+            output.println("Please enter username to authentificate: ");
+            username_check = input.readLine();
+            output.println("Please enter password to authentificate: ");
+            password_check = input.readLine();
+           if(user_pass.containsKey(username_check) && user_pass.containsValue(password_check)){
+               output.println("You are authenticated, Welcome " + username);
+           }
+           else{
+               output.println("Please enter correct username password");
+               cleanup();
+           }
         }
         catch(IOException e) {
 //            System.out.println("Error creating client thread: " + e.getMessage());
