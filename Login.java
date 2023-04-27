@@ -1,5 +1,5 @@
 
-package cyber_security;
+// package cyber_security;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -7,37 +7,43 @@ import javax.swing.*;
 
 public class Login extends javax.swing.JFrame {
     private class User {
-    private String username;
-    private String password;
+    private String username_check;
+    private String password_check;
 
     public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+        this.username_check = username;
+        this.password_check = password;
     }
 
     public String getUsername() {
-        return username;
+        return username_check;
     }
 
     public String getPassword() {
-        return password;
+        return password_check;
     }
 }
     
     private boolean checkAuthentication(String username, String password) {
-        ArrayList <User> registeredUsers = new ArrayList<>();
-        registeredUsers.add(new User("user1","password1"));
-        registeredUsers.add(new User("user2","password2"));
-        registeredUsers.add(new User("user3","password3"));
-        registeredUsers.add(new User("user4","password4"));
-        registeredUsers.add(new User("user5","password5"));
+    //     ArrayList <User> registeredUsers = new ArrayList<>();
+    //     registeredUsers.add(new User("user1","password1"));
+    //     registeredUsers.add(new User("user2","password2"));
+    //     registeredUsers.add(new User("user3","password3"));
+    //     registeredUsers.add(new User("user4","password4"));
+    //     registeredUsers.add(new User("user5","password5"));
         
-        for (User user: registeredUsers) {
+    //     for (User user: registeredUsers) {
+    //         if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                return true;
+                    return true;
+                }
+                else return false;
             }
-        }
-        return false;
+            
     }
     
 

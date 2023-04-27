@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cyber_security;
+// package cyber_security;
 
 import java.awt.List;
 import java.util.ArrayList;
@@ -14,7 +14,8 @@ import javax.swing.JOptionPane;
  * @author ajaysah
  */
 public class Registration extends javax.swing.JFrame {
-
+public String username;
+public String password;
 
     
     /**
@@ -113,10 +114,10 @@ public class Registration extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    public void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String username = user.getText();
-        String password = pass.getText();
+        username = user.getText();
+        password = pass.getText();
         
         
         boolean containsSpecialChar = password.matches(".*[^a-zA-Z0-9 ].*");
