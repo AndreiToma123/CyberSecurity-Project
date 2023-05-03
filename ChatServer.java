@@ -23,11 +23,8 @@ public class ChatServer {
             }
         }
         catch(Exception e) {
-
         }
     }
-    
-
     
     public synchronized void removeClient(ClientThread clientThread) {
         int index = -1;
@@ -57,7 +54,7 @@ class ClientThread extends Thread {   //handles communication between a client a
     ChatServer server;   
     public String username, username_check, password, password_check;
     Hashtable<String, String> user_pass;
-    int ok, ok1;
+    Boolean ok, ok1;
     
     public ClientThread(Socket clientSocket, ChatServer server) {
         this.user_pass = new Hashtable<>();
@@ -73,15 +70,15 @@ class ClientThread extends Thread {   //handles communication between a client a
             username = input.readLine(); //set nickanme
             output.println("Please enter a password(must contain at least one special character,(e.g. !@#_): ");
             password = input.readLine(); //set password
-            ok = 0;
-            ok1 = 1;
-            while(ok == 0){
+            ok = false;
+            ok1 = true;
+            while(ok == false){
             for(int i = 0; i< password.length(); i++){
                 if(Character.isLetterOrDigit(password.charAt(i)) == false){
-                    ok1 = 0;
+                    ok1 = false;
                 }
             }
-            if(ok1 == 1){
+            if(ok1){
                 output.println("Password doesn't meet requirements. Try again.");
                 output.println("Please enter a username: ");
                 username = input.readLine(); //set nickanme
@@ -90,7 +87,7 @@ class ClientThread extends Thread {   //handles communication between a client a
             }
             else{
                 user_pass.put(username, password);
-                ok = 1;
+                ok = true;
             }
             }
             output.println("Registration Successful");
@@ -111,21 +108,18 @@ class ClientThread extends Thread {   //handles communication between a client a
                output.println("Please enter password to authentificate: ");
                password_check = input.readLine();
            }
-            }
+           }
         }
         catch(IOException e) {
         }
     }
     
-
     public void cleanup() {
             server.removeClient(this);
-
             try {
                 clientSocket.close();
             } catch (IOException e) {
-            }
+              }
     }
-
 }
 

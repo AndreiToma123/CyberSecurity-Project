@@ -12,8 +12,7 @@ public class ChatClient {
     public void run() {
         
         try {
-            socket = new Socket("localhost", 1234); //server Ip, server port number
-//            System.out.println("Connected to server " + "localhost" + ": " + 1234);           
+            socket = new Socket("localhost", 1234); //server Ip, server port number         
             
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -28,10 +27,8 @@ public class ChatClient {
             
         }
         catch(UnknownHostException e) {
-//            System.out.println("Error connecting to server: " + e.getMessage());
         }
         catch(IOException e) {
-//            System.out.println("Error connecting to server: " + e.getMessage());
         }
     }
     
@@ -59,7 +56,6 @@ public class ChatClient {
                 }
             }
             catch(IOException e) {
-//                System.out.println("Error receiving message: " + e.getMessage());
             }
         }
     }
@@ -77,14 +73,12 @@ public class ChatClient {
                 }
             }
             catch(IOException e) {
-//                System.out.println("Error sending message: " + e.getMessage());
             }
             finally {
                 try {
                     socket.close();
                 }
                 catch(IOException e) {
-//                    System.out.println("Error closing socket: " + e.getMessage());
                 }
             }
         }
