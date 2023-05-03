@@ -1,4 +1,3 @@
-
 import java.net.*;
 import java.io.*;
 import static java.lang.System.exit;
@@ -56,9 +55,9 @@ class ClientThread extends Thread {   //handles communication between a client a
     BufferedReader input;
     PrintWriter output;   
     ChatServer server;   
-    String username, username_check, password, password_check;
+    public String username, username_check, password, password_check;
     Hashtable<String, String> user_pass;
-    int ok;
+    int ok, ok1;
     
     public ClientThread(Socket clientSocket, ChatServer server) {
         this.user_pass = new Hashtable<>();
@@ -72,22 +71,26 @@ class ClientThread extends Thread {   //handles communication between a client a
             
             output.println("Please enter a username: ");
             username = input.readLine(); //set nickanme
-            output.println("Please enter a password(must not contain special characters, only letters and numbers.: ");
+            output.println("Please enter a password(must contain at least one special character,(e.g. !@#_): ");
             password = input.readLine(); //set password
             ok = 0;
+            ok1 = 1;
             while(ok == 0){
             for(int i = 0; i< password.length(); i++){
                 if(Character.isLetterOrDigit(password.charAt(i)) == false){
-                    output.println("Password doesn't meet requirements. Try again.");
-                    output.println("Please enter a username: ");
-                    username = input.readLine(); //set nickanme
-                    output.println("Please enter a password(must not contain special characters, only letters and numbers. String must be minimum 4 characters long): ");
-                    password = input.readLine(); //set password
+                    ok1 = 0;
                 }
-                else{
-                    user_pass.put(username, password);
-                    ok = 1;
-                }
+            }
+            if(ok1 == 1){
+                output.println("Password doesn't meet requirements. Try again.");
+                output.println("Please enter a username: ");
+                username = input.readLine(); //set nickanme
+                output.println("Please enter a password(must contain at least one special character,(e.g. !@#_): ");
+                password = input.readLine(); //set password
+            }
+            else{
+                user_pass.put(username, password);
+                ok = 1;
             }
             }
             output.println("Registration Successful");
@@ -102,7 +105,7 @@ class ClientThread extends Thread {   //handles communication between a client a
                     
            }
            else{
-               output.println("Please enter correct username password");
+               output.println("Please enter correct username and/or password");
                output.println("Please enter username to authentificate: ");
                username_check = input.readLine();
                output.println("Please enter password to authentificate: ");
