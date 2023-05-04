@@ -26,21 +26,6 @@ public class ChatServer {
         }
     }
     
-    public synchronized void removeClient(ClientThread clientThread) {
-        int index = -1;
-        for(int i = 0; i < clientCount; i++) {
-            if(clients[i] == clientThread) {
-                index = i;
-                break;
-            }
-        }
-        if(index != -1) {
-            for(int i = index; i < clientCount - 1; i++) {
-                clients[i] = clients[i+1];
-            }
-            clientCount--;
-        }
-    }
     
     public static void main(String[] args) {
         ChatServer server = new ChatServer(1234);
@@ -73,8 +58,8 @@ class ClientThread extends Thread {   //handles communication between a client a
             ok = false;
             ok1 = true;
             while(ok == false){
-            for(int i = 0; i< password.length(); i++){
-                if(Character.isLetterOrDigit(password.charAt(i)) == false){
+            for(int i = 0; i< password.length(); i++){ //advanced feature: password policy check
+                if(Character.isLetterOrDigit(password.charAt(i)) == false){ 
                     ok1 = false;
                 }
             }
@@ -114,12 +99,5 @@ class ClientThread extends Thread {   //handles communication between a client a
         }
     }
     
-    public void cleanup() {
-            server.removeClient(this);
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-              }
-    }
 }
 
